@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: apns-csr
+Version: 0.1.0dev
+Summary: A utility to produce encoded Plist-CSRs for APNS.
+Home-page: UNKNOWN
+Author: Dustin Oprea
+Author-email: myselfasunder@gmail.com
+License: GPL 2
+Description: UNKNOWN
+Keywords: apns,plist,csr
+Platform: UNKNOWN
