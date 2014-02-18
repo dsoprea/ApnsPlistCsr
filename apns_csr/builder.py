@@ -10,9 +10,9 @@ from hashlib import sha1
 def _get_remote_cert(url):
     r = requests.get(url)
     data = r.raw.read()
-#    print("%s: %d" % (url, len(data)))
 
-#    data = urllib2.urlopen(url).read()
+# TODO(dustin): urllib2 was in the original design, and it produces a result that's twice as long. We don't know why, or which version of correct.
+# data = urllib2.urlopen(url).read()
 
     return _cer_der_to_pem(data)
 
