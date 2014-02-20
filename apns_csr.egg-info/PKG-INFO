@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: apns-csr
-Version: 0.3.4
+Version: 0.3.5
 Summary: A tool to produce encoded Plist-CSRs for APNS.
 Home-page: https://github.com/dsoprea/ApnsPlistCsr
 Author: Dustin Oprea
