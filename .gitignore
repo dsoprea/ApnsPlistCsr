@@ -4,4 +4,5 @@
 /include
 /.Python
 *.pyc
+/dist
 

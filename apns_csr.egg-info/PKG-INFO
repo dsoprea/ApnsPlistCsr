@@ -1,11 +1,20 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: apns-csr
-Version: 0.1.0dev
-Summary: A utility to produce encoded Plist-CSRs for APNS.
-Home-page: UNKNOWN
+Version: 0.3.4
+Summary: A tool to produce encoded Plist-CSRs for APNS.
+Home-page: https://github.com/dsoprea/ApnsPlistCsr
 Author: Dustin Oprea
 Author-email: myselfasunder@gmail.com
 License: GPL 2
-Description: UNKNOWN
+Description: The process of packaging a client's CSR to be sent to Apple in order to 
+        authorize you to send notifications on its behalf is excruciating. This tool
+        does the hard work.   
+        
 Keywords: apns,plist,csr
 Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Handhelds/PDA's
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

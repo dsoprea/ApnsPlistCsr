@@ -7,4 +7,6 @@ apns_csr.egg-info/SOURCES.txt
 apns_csr.egg-info/dependency_links.txt
 apns_csr.egg-info/entry_points.txt
 apns_csr.egg-info/not-zip-safe
+apns_csr.egg-info/requires.txt
 apns_csr.egg-info/top_level.txt
+scripts/csr_to_apns_csr
