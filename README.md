@@ -48,8 +48,8 @@ is *not* a standard cryptography CSR**. It is expected that you already have a
 4. Convert the PEM-formatted client CSR to a DER-formatted CSR, and base64-
    encode it to 64-byte rows.
 
-5. Sign a SHA1 hash of the DER-formatted client CSR with the vendor PEM-
-   formatted private key to produce a binary digest/signature. Base64-encode
+5. Sign a SHA1 hash of the DER-formatted client CSR with the vendor PEM-formatted 
+   private key to produce a binary digest/signature. Base64-encode
    this to 64-byte rows.
 
 6. Compile a CA chain by concatenating the following PEM-certificates (with the 
@@ -99,7 +99,7 @@ optional arguments:
 Example:
 
 ```
-$ csr_to_apns_csr client.key client.csr mdm_vendor.cer "mdm_vendor_passphrase" > /tmp/client_encoded_plist_csr
+$ csr_to_apns_csr client.csr mdm_vendor.cer "mdm_vendor_passphrase" > /tmp/client_encoded_plist_csr
 ```
 
 Note that, in the example above, the MDM vendor P12 certificate that we were
@@ -114,13 +114,12 @@ from apns_csr import mdm_vendor_sign_with_files,\
 encoded_plist_csr = mdm_vendor_sign_with_files(
     csr_filepath, 
     mdm_vendor_certificate_filepath, 
-    mdm_vendor_certificate_passphrase, 
-    *args, **kwargs):
+    mdm_vendor_certificate_passphrase):
 
 # or, directly:
 
 encoded_plist_csr = mdm_vendor_sign(
-    csr_text, 
+    csr_pem, 
     mdm_vendor_certificate_der, 
     mdm_vendor_certificate_passphrase)
 
@@ -129,6 +128,5 @@ encoded_plist_csr = mdm_vendor_sign(
 # Comments
 
 Special thanks to [mdmvendorsign](https://github.com/grinich/mdmvendorsign).
-Though I can't be sure of its validity, it provided something to start 
-from.
+Though it may not be valid, it provided something to start from.
 
