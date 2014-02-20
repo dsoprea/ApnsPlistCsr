@@ -57,31 +57,27 @@ def mdm_vendor_sign(csr_text,
                     mdm_vendor_certificate_der, 
                     mdm_vendor_certificate_passphrase, 
                     encode_xml=True):
-    _verify_csr(csr_text)
-    
     mdm_vendor_cert_info = \
         _verify_and_read_mdm_vendor_certificate(
             mdm_vendor_certificate_der, 
             mdm_vendor_certificate_passphrase)
 
     csr_der = _get_der_from_pem_csr(csr_text)
-    csr_der_b64 = b64encode(csr_der)
+
+    csr_rows = csr_text.rstrip().split("\n")
+    csr_rows_no_anchors = csr_rows[1:-1]
+    csr_text_no_anchors = "\n".join(csr_rows_no_anchors)
 
     csr_signature = _sign_csr(csr_der, mdm_vendor_cert_info['private_key_pem'])
 
     ia_pem = _get_remote_cert(IA_CERT_URL)
     ca_pem = _get_remote_cert(CA_CERT_URL)
 
-# TODO(dustin): Can't we just use the original PEM CSR? We don't see how the
-#               anchors could end up in the Plist, but we think we remember
-#               seeing the anchors in the final product? Applies to both this 
-#               and the sigature.
-    _request_csr = ''.join(_chunks(csr_der_b64))
     _cert_chain = (mdm_vendor_cert_info['certificate_pem'] + ia_pem + ca_pem)
     _cert_sig = ''.join(_chunks(csr_signature))
 
     plist_dict = dict(
-        PushCertRequestCSR=_request_csr.rstrip(),
+        PushCertRequestCSR=csr_text_no_anchors,
         PushCertCertificateChain=_cert_chain.rstrip(),
         PushCertSignature=_cert_sig.rstrip())
 
