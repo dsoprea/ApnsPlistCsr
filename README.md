@@ -76,19 +76,17 @@ If there's an error with your certificate, Apple will not accept your upload.
 
 To use the tool, you must have the following:
 
-- Apple vendor MDM certificate (DER-formatted "p12" file)
-- Client private key (PEM-formatted "key" file... this is not used here, but you should still have it.
+- Apple vendor MDM certificate (DER-formatted "p12" file), and passphrase.
 - Client CSR (PEM-formatted "csr" file)
 
 Command-line:
 
 ```
-usage: csr_to_apns_csr [-h] [-x] key csr vendor_p12 vendor_p12_pass
+usage: csr_to_apns_csr [-h] [-x] csr vendor_p12 vendor_p12_pass
 
 Produce an APNS Plist (encoded) from a standard CSR.
 
 positional arguments:
-  key              Client private key (PEM)
   csr              Client CSR (PEM)
   vendor_p12       MDM vendor P12 certificate (DER)
   vendor_p12_pass  Passphrase for MDM vendor P12 certificate
@@ -110,13 +108,22 @@ given, as a vendor, from Apple, has a "cer" extension (rather than "p12").
 # Use as a Library
 
 ```python
-from apns_csr import mdm_vendor_sign
+from apns_csr import mdm_vendor_sign_with_files,\
+                     mdm_vendor_sign
+
+encoded_plist_csr = mdm_vendor_sign_with_files(
+    csr_filepath, 
+    mdm_vendor_certificate_filepath, 
+    mdm_vendor_certificate_passphrase, 
+    *args, **kwargs):
+
+# or, directly:
 
 encoded_plist_csr = mdm_vendor_sign(
     csr_text, 
-    private_key_text, 
     mdm_vendor_certificate_der, 
     mdm_vendor_certificate_passphrase)
+
 ```
 
 # Comments

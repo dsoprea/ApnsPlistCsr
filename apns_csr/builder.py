@@ -23,9 +23,6 @@ def _get_remote_cert(url):
 def _verify_csr(csr_text):
     M2Crypto.X509.load_request_string(csr_text)
 
-def _verify_private_key(private_key_text):
-    M2Crypto.RSA.load_key_string(private_key_text)
-
 def _verify_and_read_mdm_vendor_certificate(mdm_vendor_p12_certificate_der, passphrase):
     mdm_vendor_certificate = OpenSSL.crypto.load_pkcs12(mdm_vendor_p12_certificate_der, passphrase)
 
@@ -57,12 +54,10 @@ def _chunks(l, n=64):
         yield l[i:i+n] + "\n"
 
 def mdm_vendor_sign(csr_text, 
-                    private_key_text, 
                     mdm_vendor_certificate_der, 
                     mdm_vendor_certificate_passphrase, 
                     encode_xml=True):
     _verify_csr(csr_text)
-    _verify_private_key(private_key_text)
     
     mdm_vendor_cert_info = \
         _verify_and_read_mdm_vendor_certificate(
@@ -98,22 +93,17 @@ def mdm_vendor_sign(csr_text,
     encoded_plist = b64encode(plist_xml)
     return ''.join(_chunks(encoded_plist)).rstrip() + "\n"
 
-def mdm_vendor_sign_with_files(private_key_filepath, 
-                               csr_filepath, 
+def mdm_vendor_sign_with_files(csr_filepath, 
                                mdm_vendor_certificate_filepath, 
                                mdm_vendor_certificate_passphrase, 
                                *args, **kwargs):
     with open(csr_filepath) as f:
         csr_text = f.read()
 
-    with open(private_key_filepath) as f:
-        private_key_text = f.read()
-
     with open(mdm_vendor_certificate_filepath) as f:
         mdm_vendor_certificate_der = f.read()
 
     return mdm_vendor_sign(csr_text, 
-                           private_key_text, 
                            mdm_vendor_certificate_der, 
                            mdm_vendor_certificate_passphrase, 
                            *args, **kwargs)

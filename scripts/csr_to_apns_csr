@@ -10,9 +10,6 @@ from apns_csr import mdm_vendor_sign_with_files
 parser = argparse.ArgumentParser(
             description="Produce an Apple-formatted APNS 'push' CSR.")
 
-parser.add_argument('key', 
-                    help='client private key (PEM)')
-
 parser.add_argument('csr', 
                     help='client CSR (PEM)')
 
@@ -28,7 +25,6 @@ parser.add_argument('-x', '--xml',
 args = parser.parse_args()
 
 encoded_plist = mdm_vendor_sign_with_files(
-                    args.key, 
                     args.csr, 
                     args.vendor_p12, 
                     args.vendor_p12_pass, 
