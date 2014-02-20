@@ -30,5 +30,5 @@ encoded_plist = mdm_vendor_sign_with_files(
                     args.vendor_p12_pass, 
                     encode_xml=not args.xml)
 
-sys.stdout.write(encoded_plist)
+print(encoded_plist)
 
