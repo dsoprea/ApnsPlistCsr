@@ -76,8 +76,11 @@ def mdm_vendor_sign(csr_text,
 
     ia_pem = _get_remote_cert(IA_CERT_URL)
     ca_pem = _get_remote_cert(CA_CERT_URL)
-    mdm_vendor_certificate_pem = _cer_der_to_pem(mdm_vendor_certificate_der)
 
+# TODO(dustin): Can't we just use the original PEM CSR? We don't see how the
+#               anchors could end up in the Plist, but we think we remember
+#               seeing the anchors in the final product? Applies to both this 
+#               and the sigature.
     _request_csr = ''.join(_chunks(csr_der_b64))
     _cert_chain = (mdm_vendor_cert_info['certificate_pem'] + ia_pem + ca_pem)
     _cert_sig = ''.join(_chunks(csr_signature))
