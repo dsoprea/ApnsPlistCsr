@@ -1,4 +1,4 @@
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import ssl
 import M2Crypto
 import OpenSSL
@@ -14,7 +14,7 @@ CA_CERT_URL = 'http://www.apple.com/appleca/AppleIncRootCertificate.cer'
 def _get_remote_cert(url):
 # TODO(dustin): There's an encoding problem with requests.get(url).text, and partial data when we do requests.get(url).raw.read() .
 # TODO(dustin): Cache/store this locally, or we'll be out of luck if their systems are unavailable.
-    data = urllib2.urlopen(url).read()
+    data = urllib.request.urlopen(url).read()
     if not data:
         raise ValueError("Could not read remote certificate: %s" % (url))
 
@@ -50,7 +50,7 @@ def _cer_der_to_pem(cer_certificate_der):
     return ssl.DER_cert_to_PEM_cert(cer_certificate_der)
 
 def _chunks(l, n=64):
-    for i in xrange(0, len(l), n):
+    for i in range(0, len(l), n):
         yield l[i:i+n] + "\n"
 
 def mdm_vendor_sign(csr_text, 
